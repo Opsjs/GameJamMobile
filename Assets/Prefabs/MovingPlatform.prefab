@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 465892013797981381}
   - component: {fileID: 2365883228952861370}
   - component: {fileID: 4535328735742644987}
-  - component: {fileID: 1735264303989763206}
+  - component: {fileID: 9040217067337974300}
   m_Layer: 0
-  m_Name: Platform
-  m_TagString: Untagged
+  m_Name: MovingPlatform
+  m_TagString: MovingPlatform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 4543292417186936645}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.3751, y: -4.21, z: 0}
+  m_LocalPosition: {x: -0, y: 21.5, z: 0}
   m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -152,7 +152,7 @@ PlatformEffector2D:
   m_UseSideFriction: 0
   m_UseSideBounce: 0
   m_SideArc: 1
---- !u!114 &1735264303989763206
+--- !u!114 &9040217067337974300
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -161,7 +161,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 4543292417186936645}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d784c4f6b51b6f5449e1eb474bb86b34, type: 3}
+  m_Script: {fileID: 11500000, guid: e38f2893fbf3bd54d83a7f07c67ec835, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   jumpForce: 10
+  speed: 1
+  range: 2

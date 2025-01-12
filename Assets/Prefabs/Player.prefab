@@ -41,9 +41,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4329520491393118484}
   - component: {fileID: 495066408425397842}
+  - component: {fileID: 742926089592044949}
   - component: {fileID: 1636741215595677413}
   - component: {fileID: 5250855617544994842}
-  - component: {fileID: 742926089592044949}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -122,6 +122,23 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &742926089592044949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6479775977687994407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b62cb33c709a2643a31210866249668, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraPointer: {fileID: 0}
+  cameraTransform: {fileID: 0}
+  scoreManager: {fileID: 0}
+  smoothSpeed: 0.2
+  sensitivity: 0
 --- !u!61 &1636741215595677413
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -195,17 +212,3 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!114 &742926089592044949
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6479775977687994407}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b62cb33c709a2643a31210866249668, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  smoothSpeed: 0.2
-  cameraTransform: {fileID: 0}

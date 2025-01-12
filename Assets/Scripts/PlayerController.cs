@@ -1,82 +1,96 @@
+using Unity.VisualScripting;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    float newVerticalPosition = 0;
-    float oldVerticalPosition = 0;
-    float highestVerticalPosition = 0;
-    [SerializeField] GameObject cameraPointer;
-    [SerializeField] float smoothSpeed = 0.2f;  // Vitesse de glissement (plus petit = plus lent)
-    [SerializeField] Transform cameraTransform;
+    private float newVerticalPosition = 0;
+    private float oldVerticalPosition = 0;
+    private float highestVerticalPosition = 0;
+    public float HighestVerticalPosition { get => highestVerticalPosition; }
+
+    [Header("References")]
+    [SerializeField] private GameObject cameraPointer;
+    [SerializeField] private Transform cameraTransform;
+    [SerializeField] private ScoreManager scoreManager;
+    private Rigidbody2D rb;
+    private Camera mainCamera;
+
+    [Header("Values")]
+    [SerializeField] private float smoothSpeed = 0.2f;  // Vitesse de glissement (plus petit = plus lent)
+    [SerializeField] private float sensitivity;
+
+    private void Start()
+    {
+
+        rb = GetComponent<Rigidbody2D>();
+        mainCamera = Camera.main;
+
+    }
     private void Update()
     {
-        float tilt = -Input.acceleration.x;
-        if (tilt > 0.1f || tilt < -0.1f)
-        {
-            tilt = 0;
-        }
-            transform.Translate(-tilt, 0, 0);
-        if (transform.position.x < -2.5f)
-        {
-            transform.position = (new Vector3(-2.5f, transform.position.y, transform.position.z));
-        } else if (transform.position.x > 2.5f)
-        {
-            transform.position = (new Vector3(2.5f, transform.position.y, transform.position.z));
-        }
+        float tilt = -Input.acceleration.x * sensitivity;
+        if (Mathf.Abs(tilt) < .05f * sensitivity) tilt = 0;
         
+
+        if (rb.bodyType != RigidbodyType2D.Kinematic)
+        {
+            transform.Translate(-tilt * Time.deltaTime * 5f, 0, 0); 
+        }
+        Vector3 clampedPosition = transform.position;
+
+        float halfPlayerWidth = GetComponent<SpriteRenderer>().bounds.size.x / 2f; 
+        float cameraHalfWidth = mainCamera.orthographicSize * mainCamera.aspect;
+
+        float minX = mainCamera.transform.position.x - cameraHalfWidth + halfPlayerWidth;
+        float maxX = mainCamera.transform.position.x + cameraHalfWidth - halfPlayerWidth;
+
+        clampedPosition.x = Mathf.Clamp(clampedPosition.x, minX, maxX);
+        transform.position = clampedPosition;
     }
+
+
+    private void LateUpdate()
+    {
+        Vector3 targetPosition = new Vector3(cameraTransform.position.x, Mathf.Max(transform.position.y, highestVerticalPosition), cameraTransform.position.z);
+
+        cameraTransform.position = Vector3.Lerp(
+            cameraTransform.position,
+            targetPosition,
+            smoothSpeed * Time.deltaTime
+        );
+    }
+
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        oldVerticalPosition = newVerticalPosition;
-        newVerticalPosition = cameraPointer.transform.position.y;
-        if (newVerticalPosition > highestVerticalPosition)
+        if (collision.gameObject.CompareTag("DeathZone"))
         {
-            highestVerticalPosition = newVerticalPosition;
-            if (highestVerticalPosition > oldVerticalPosition)
+            Debug.Log("Player is dead");
+            
+            rb.linearVelocity = Vector2.zero;
+            rb.bodyType = RigidbodyType2D.Kinematic;
+
+            //------------------------------------------------------------------------------------
+            // Ajouter script Thidiane
+            //------------------------------------------------------------------------------------
+        } else
+        {
+            oldVerticalPosition = newVerticalPosition;
+            newVerticalPosition = cameraPointer.transform.position.y;
+            if (newVerticalPosition > highestVerticalPosition)
             {
-                //cameraTransform.position = new Vector3(cameraTransform.position.x, newVerticalPosition, cameraTransform.position.z);
-                Vector3 targetPosition = new Vector3(
-                    cameraTransform.position.x,
-                    newVerticalPosition,
-                    cameraTransform.position.z
-                );
-
-                StartCoroutine(SmoothMoveCamera(targetPosition));
+                highestVerticalPosition = newVerticalPosition;
+                scoreManager.UpdateScore(highestVerticalPosition);
+                if (highestVerticalPosition > oldVerticalPosition)
+                {
+                    Vector3 targetPosition = new Vector3(
+                        cameraTransform.position.x,
+                        newVerticalPosition,
+                        cameraTransform.position.z
+                    );
+                }
             }
-        }
-    }
-    private System.Collections.IEnumerator SmoothMoveCamera(Vector3 targetPosition)
-    {
-        //float elapsedTime = 0f;
-        //float duration = smoothSpeed;
-
-        //Vector3 startPosition = cameraTransform.position;
-
-        //while (elapsedTime < duration)
-        //{
-        //    // Interpoler la position de la caméra
-        //    cameraTransform.position = Vector3.Lerp(startPosition, targetPosition, elapsedTime / duration);
-
-        //    elapsedTime += Time.deltaTime;
-        //    yield return null;
-        //}
-
-        //// Fixer la position finale pour éviter les imprécisions
-        //cameraTransform.position = targetPosition;
-
-        Vector3 velocity = Vector3.zero;
-
-        while (Vector3.Distance(cameraTransform.position, targetPosition) > 0.01f) // Seuil de 0.01f
-        {
-            cameraTransform.position = Vector3.SmoothDamp(
-                cameraTransform.position,
-                targetPosition,
-                ref velocity,
-                smoothSpeed
-            );
-
-            yield return null;
         }
     }
 }

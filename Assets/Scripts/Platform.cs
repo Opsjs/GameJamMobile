@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class Platform : MonoBehaviour
 {
-    public float jumpForce = 10f;
+    [SerializeField] float jumpForce = 10f;
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
         // Vérifie si la collision vient du bas (relativeVelocity.y <= 0)
         if (collision.relativeVelocity.y <= 0f)
