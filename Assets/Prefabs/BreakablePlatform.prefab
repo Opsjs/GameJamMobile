@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2365883228952861370}
   - component: {fileID: 4535328735742644987}
   - component: {fileID: 7559270558306943214}
+  - component: {fileID: 8086049952386234138}
   m_Layer: 0
   m_Name: BreakablePlatform
   m_TagString: BreakablePlatform
@@ -78,7 +79,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -8
   m_Sprite: {fileID: 1325028264418417928, guid: bcef645f6bf748e4b942756b6f961a95, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -165,3 +166,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpForce: 10
+--- !u!114 &8086049952386234138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4543292417186936645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2229da2ccd5f6048a5ee570dfdba439, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

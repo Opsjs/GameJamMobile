@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 4998713289245643364}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 10, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 5250855617544994842}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -110,7 +110,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -9
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -134,11 +134,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b62cb33c709a2643a31210866249668, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraPointer: {fileID: 0}
+  cameraPointer: {fileID: 4998713289245643364}
   cameraTransform: {fileID: 0}
   scoreManager: {fileID: 0}
-  smoothSpeed: 0.2
-  sensitivity: 0
+  smoothSpeed: 1
+  sensitivity: 1.15
+  jumpForce: 0.75
 --- !u!61 &1636741215595677413
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -201,7 +202,7 @@ Rigidbody2D:
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 6200000, guid: a194b51a050253649bdd9bfca146e59b, type: 2}
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

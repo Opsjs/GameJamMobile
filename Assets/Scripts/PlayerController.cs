@@ -1,6 +1,7 @@
 using Unity.VisualScripting;
 using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class PlayerController : MonoBehaviour
     [Header("Values")]
     [SerializeField] private float smoothSpeed = 0.2f;  // Vitesse de glissement (plus petit = plus lent)
     [SerializeField] private float sensitivity;
+    [SerializeField] private float jumpForce = 10f;
 
     private void Start()
     {
@@ -68,8 +70,10 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("Player is dead");
             
-            rb.linearVelocity = Vector2.zero;
-            rb.bodyType = RigidbodyType2D.Kinematic;
+
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            //rb.linearVelocity = Vector2.zero;
+            //rb.bodyType = RigidbodyType2D.Kinematic;
 
             //------------------------------------------------------------------------------------
             // Ajouter script Thidiane
@@ -91,6 +95,10 @@ public class PlayerController : MonoBehaviour
                     );
                 }
             }
+        }
+        if (collision.relativeVelocity.y > 0f)
+        {
+            rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
         }
     }
 }
