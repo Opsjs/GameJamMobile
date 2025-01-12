@@ -630,9 +630,17 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 1306564271}
+    - target: {fileID: 7464566395631136121, guid: ed76550cc3bd6894eadf0f1cd2a8b296, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7613972709158947487, guid: ed76550cc3bd6894eadf0f1cd2a8b296, type: 3}
       propertyPath: m_Name
       value: CanvasGameMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 7613972709158947487, guid: ed76550cc3bd6894eadf0f1cd2a8b296, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8565019969310678296, guid: ed76550cc3bd6894eadf0f1cd2a8b296, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
