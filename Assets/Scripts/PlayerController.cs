@@ -15,8 +15,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform cameraTransform;
     [SerializeField] private ScoreManager scoreManager;
     [SerializeField] private MenuGameOver menuGameOver;
+    [SerializeField] Sprite UpPlayer;
+    [SerializeField] Sprite DownPlayer;
     private Rigidbody2D rb;
     private Camera mainCamera;
+    private SpriteRenderer spriteRenderer;
 
     [Header("Values")]
     [SerializeField] private float smoothSpeed = 0.2f;  // Vitesse de glissement (plus petit = plus lent)
@@ -30,6 +33,8 @@ public class PlayerController : MonoBehaviour
 
         rb = GetComponent<Rigidbody2D>();
         mainCamera = Camera.main;
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer.sprite = UpPlayer;
 
     }
     private void Update()
@@ -57,6 +62,15 @@ public class PlayerController : MonoBehaviour
 
     private void LateUpdate()
     {
+        if (rb.linearVelocityY < 0)
+        {
+            spriteRenderer.sprite = DownPlayer;
+        } else
+        {
+            spriteRenderer.sprite = UpPlayer;
+        }
+
+
         Vector3 targetPosition = new Vector3(cameraTransform.position.x, Mathf.Max(transform.position.y, highestVerticalPosition), cameraTransform.position.z);
 
         cameraTransform.position = Vector3.Lerp(
